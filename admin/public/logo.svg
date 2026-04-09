@@ -1,0 +1,6 @@
+<svg width="280" height="280" viewBox="0 0 280 280" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect x="10" y="10" width="260" height="260" stroke="#3d3d3d" stroke-width="3" fill="white"/>
+  <text x="50" y="140" font-family="'Brush Script MT', cursive" font-size="72" font-weight="bold" fill="#3d3d3d" style="font-style: italic;">Berad</text>
+  <text x="120" y="180" font-family="Arial, sans-serif" font-size="36" font-weight="normal" fill="#3d3d3d">inox</text>
+  <path d="M 50 200 Q 140 240 230 200" stroke="#3d3d3d" stroke-width="3" fill="none"/>
+</svg>

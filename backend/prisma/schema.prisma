@@ -1,0 +1,69 @@
+generator client {
+  provider      = "prisma-client-js"
+  binaryTargets = ["native", "linux-musl-arm64-openssl-3.0.x"]
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        String   @id @default(uuid())
+  email     String   @unique
+  password  String
+  name      String
+  role      String   @default("admin")
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Category {
+  id          String        @id @default(uuid())
+  name        String
+  nameRu      String
+  slug        String        @unique
+  icon        String?
+  image       String?
+  order       Int           @default(0)
+  parentId    String?
+  parent      Category?     @relation("CategoryToCategory", fields: [parentId], references: [id])
+  children    Category[]    @relation("CategoryToCategory")
+  products    Product[]
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt
+}
+
+model Product {
+  id             String   @id @default(uuid())
+  name           String
+  nameRu         String
+  description     String?
+  descriptionRu  String?
+  categoryId     String
+  category       Category @relation(fields: [categoryId], references: [id])
+  images         String[]
+  specifications Json?
+  gost           String?
+  brand          String?
+  diameter       String?
+  thickness      String?
+  length         String?
+  weight         String?
+  price          Float?
+  priceType      String   @default("fixed")
+  inStock        Boolean  @default(true)
+  featured       Boolean  @default(false)
+  viewCount      Int      @default(0)
+  slug           String   @unique
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Setting {
+  id        String   @id @default(uuid())
+  key       String   @unique
+  value     String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}

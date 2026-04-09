@@ -1,0 +1,74 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:15-alpine
+    container_name: beradinox-db
+    environment:
+      POSTGRES_DB: beradinox
+      POSTGRES_USER: beradinox_user
+      POSTGRES_PASSWORD: beradinox_pass_2024
+    ports:
+      - "5433:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - beradinox-network
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: beradinox-backend
+    environment:
+      NODE_ENV: production
+      DATABASE_URL: postgresql://beradinox_user:beradinox_pass_2024@postgres:5432/beradinox
+      JWT_SECRET: beradinox_jwt_secret_key_2024_secure
+      PORT: 5000
+    ports:
+      - "5001:5000"
+    depends_on:
+      - postgres
+    volumes:
+      - ./backend:/app
+      - /app/node_modules
+      - uploads:/app/uploads
+    networks:
+      - beradinox-network
+    command: npm run start
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: beradinox-frontend
+    environment:
+      REACT_APP_API_URL: http://localhost:5000/api
+    ports:
+      - "3000:80"
+    depends_on:
+      - backend
+    networks:
+      - beradinox-network
+
+  admin:
+    build:
+      context: ./admin
+      dockerfile: Dockerfile
+    container_name: beradinox-admin
+    environment:
+      REACT_APP_API_URL: http://localhost:5000/api
+    ports:
+      - "3001:80"
+    depends_on:
+      - backend
+    networks:
+      - beradinox-network
+
+volumes:
+  postgres_data:
+  uploads:
+
+networks:
+  beradinox-network:
+    driver: bridge
