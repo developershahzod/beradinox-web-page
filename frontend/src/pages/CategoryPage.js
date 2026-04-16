@@ -266,15 +266,15 @@ const CategoryPage = () => {
         <div className="border-t border-gray-200 bg-white">
           <div className="max-w-[1400px] mx-auto px-6 py-8">
             <h2 className="text-lg font-bold text-gray-900 mb-3">{category.nameRu}</h2>
-            <div className={`relative ${!showFullDescription ? 'max-h-[72px] overflow-hidden' : ''}`}>
+            <div className={`relative ${!showFullDescription ? 'max-h-[90px] overflow-hidden' : ''}`}>
               <p className="text-sm text-gray-600 leading-relaxed whitespace-pre-line">
                 {category.descriptionRu}
               </p>
-              {!showFullDescription && category.descriptionRu.length > 200 && (
+              {!showFullDescription && category.descriptionRu.length > 300 && (
                 <div className="absolute bottom-0 left-0 right-0 h-12 bg-gradient-to-t from-white to-transparent" />
               )}
             </div>
-            {category.descriptionRu.length > 200 && (
+            {category.descriptionRu.length > 300 && (
               <button
                 onClick={() => setShowFullDescription(!showFullDescription)}
                 className="mt-2 text-sm font-medium text-gray-500 hover:text-gray-900 transition-colors"
