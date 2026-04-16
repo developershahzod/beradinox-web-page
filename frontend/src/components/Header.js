@@ -16,6 +16,7 @@ const Header = () => {
   const [activeIndex, setActiveIndex] = useState(-1);
   const { getCartCount } = useCart();
   const searchRef = useRef(null);
+  const inputRef = useRef(null);
   const debounceRef = useRef(null);
 
   const isActive = (path) => {
@@ -123,6 +124,7 @@ const Header = () => {
             <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none z-10" />
           )}
           <input
+            ref={isMobile ? null : inputRef}
             type="text"
             placeholder="Поиск по названию, марке, ГОСТ..."
             value={searchQuery}
