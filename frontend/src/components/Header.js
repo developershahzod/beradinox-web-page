@@ -30,35 +30,28 @@ const Header = () => {
     { path: '/contacts', label: 'Контакты' }
   ];
 
-  const doSearch = useCallback((q) => {
-    if (!q.trim() || q.trim().length < 2) {
-      setResults([]);
-      setShowDropdown(false);
-      return;
-    }
-    setLoading(true);
-    axios.get(`/products?search=${encodeURIComponent(q.trim())}&limit=7`)
-      .then(res => {
-        setResults(res.data.products || []);
-        setShowDropdown(true);
-        setActiveIndex(-1);
-      })
-      .catch(() => setResults([]))
-      .finally(() => setLoading(false));
-  }, []);
-
   useEffect(() => {
     clearTimeout(debounceRef.current);
     if (searchQuery.trim().length >= 2) {
       setLoading(true);
-      debounceRef.current = setTimeout(() => doSearch(searchQuery), 320);
+      debounceRef.current = setTimeout(() => {
+        const q = searchQuery.trim();
+        axios.get(`/products?search=${encodeURIComponent(q)}&limit=7`)
+          .then(res => {
+            setResults(res.data.products || []);
+            setShowDropdown(true);
+            setActiveIndex(-1);
+          })
+          .catch(() => setResults([]))
+          .finally(() => setLoading(false));
+      }, 320);
     } else {
       setResults([]);
       setShowDropdown(false);
       setLoading(false);
     }
     return () => clearTimeout(debounceRef.current);
-  }, [searchQuery, doSearch]);
+  }, [searchQuery]);
 
   // Close dropdown on outside click
   useEffect(() => {

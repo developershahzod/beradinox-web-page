@@ -263,25 +263,27 @@ const CategoryPage = () => {
 
       {/* Category Description — SEO block */}
       {category.descriptionRu && (
-        <div className="border-t border-gray-200 bg-white">
-          <div className="max-w-[1400px] mx-auto px-6 py-8">
-            <h2 className="text-lg font-bold text-gray-900 mb-3">{category.nameRu}</h2>
-            <div className={`relative ${!showFullDescription ? 'max-h-[90px] overflow-hidden' : ''}`}>
-              <p className="text-sm text-gray-600 leading-relaxed whitespace-pre-line">
-                {category.descriptionRu}
-              </p>
-              {!showFullDescription && category.descriptionRu.length > 300 && (
-                <div className="absolute bottom-0 left-0 right-0 h-12 bg-gradient-to-t from-white to-transparent" />
+        <div className="bg-gray-50 border-t border-gray-200">
+          <div className="max-w-[1400px] mx-auto px-6 py-10">
+            <div className="bg-white rounded-lg border border-gray-200 p-6 shadow-sm">
+              <h2 className="text-xl font-bold text-gray-900 mb-4 pb-3 border-b border-gray-100">{category.nameRu}</h2>
+              <div className={`relative ${!showFullDescription ? 'max-h-[90px] overflow-hidden' : ''}`}>
+                <p className="text-sm text-gray-700 leading-relaxed whitespace-pre-line">
+                  {category.descriptionRu}
+                </p>
+                {!showFullDescription && category.descriptionRu.length > 300 && (
+                  <div className="absolute bottom-0 left-0 right-0 h-16 bg-gradient-to-t from-white via-white/80 to-transparent pointer-events-none" />
+                )}
+              </div>
+              {category.descriptionRu.length > 300 && (
+                <button
+                  onClick={() => setShowFullDescription(!showFullDescription)}
+                  className="mt-4 px-4 py-2 text-sm font-medium text-gray-600 hover:text-gray-900 hover:bg-gray-50 border border-gray-200 rounded transition-colors"
+                >
+                  {showFullDescription ? '↑ Скрыть' : '↓ Показать полностью'}
+                </button>
               )}
             </div>
-            {category.descriptionRu.length > 300 && (
-              <button
-                onClick={() => setShowFullDescription(!showFullDescription)}
-                className="mt-2 text-sm font-medium text-gray-500 hover:text-gray-900 transition-colors"
-              >
-                {showFullDescription ? 'Скрыть' : 'Показать полностью'}
-              </button>
-            )}
           </div>
         </div>
       )}
