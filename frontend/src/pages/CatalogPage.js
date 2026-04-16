@@ -3,11 +3,13 @@ import { Link, useSearchParams } from 'react-router-dom';
 import axios from '../api/axios';
 import { getProductImage } from '../utils/productImage';
 import { Search, Filter, PackageX, ChevronRight } from 'lucide-react';
+import SEO from '../components/SEO';
 
 const CatalogPage = () => {
   const [searchParams] = useSearchParams();
   const [products, setProducts] = useState([]);
   const [categories, setCategories] = useState([]);
+  const seoBlock = <SEO title="Каталог металлопродукции" description="Полный каталог металлопродукции Beradinox: нержавеющая сталь, алюминий, трубы, листы, оборудование. Цены, фильтры, поиск. Доставка по Узбекистану." canonical="/catalog" />;
   const [loading, setLoading] = useState(true);
   const [searchQuery, setSearchQuery] = useState(searchParams.get('search') || '');
   const [selectedCategory, setSelectedCategory] = useState('all');
@@ -50,6 +52,7 @@ const CatalogPage = () => {
 
   return (
     <div className="min-h-screen bg-gray-50/50 dark:bg-gray-900">
+      {seoBlock}
       {/* Page Header */}
       <div className="bg-white dark:bg-gray-800 border-b border-gray-100 dark:border-gray-700">
         <div className="max-w-[1400px] mx-auto px-6 py-8">

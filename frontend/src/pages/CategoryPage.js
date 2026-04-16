@@ -3,6 +3,7 @@ import { useParams, Link } from 'react-router-dom';
 import { ChevronRight, SlidersHorizontal, PackageX } from 'lucide-react';
 import axios from '../api/axios';
 import { getProductImage } from '../utils/productImage';
+import SEO from '../components/SEO';
 
 const CategoryPage = () => {
   const { slug } = useParams();
@@ -53,6 +54,11 @@ const CategoryPage = () => {
 
   return (
     <div className="min-h-screen bg-gray-50">
+      <SEO
+        title={`${category.nameRu} — купить в Ташкенте`}
+        description={`${category.nameRu} от Beradinox. Широкий выбор, лучшие цены, сертифицированное качество. Доставка по всему Узбекистану.`}
+        canonical={`/category/${slug}`}
+      />
 
       {/* Page header */}
       <div className="bg-white border-b border-gray-200">

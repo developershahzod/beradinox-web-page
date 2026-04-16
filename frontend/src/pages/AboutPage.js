@@ -1,10 +1,12 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { ChevronRight, Shield, Truck, Award, Wrench, Phone, MapPin, CheckCircle, Users, Package, Clock, ArrowRight } from 'lucide-react';
+import SEO from '../components/SEO';
 
 const AboutPage = () => {
   return (
     <div className="min-h-screen bg-gray-50">
+      <SEO title="О компании" description="Beradinox — терминал металлопродукции №1 в Узбекистане. Более 10 лет опыта. Сертифицированное качество, доставка, широкий ассортимент нержавеющей стали и алюминия." canonical="/about" />
 
       {/* Hero — same style as homepage */}
       <section

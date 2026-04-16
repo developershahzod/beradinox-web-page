@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Phone, Mail, MapPin, Clock, Send, ChevronRight, MessageSquare, CheckCircle } from 'lucide-react';
 import axios from '../api/axios';
+import SEO from '../components/SEO';
 
 const ContactPage = () => {
   const [formData, setFormData] = useState({ name: '', phone: '', message: '' });
@@ -31,6 +32,7 @@ const ContactPage = () => {
 
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
+      <SEO title="Контакты" description="Свяжитесь с Beradinox: телефон +998 78 113 62 18, адрес в Ташкенте. Консультация, заказ металлопродукции, доставка по Узбекистану." canonical="/contacts" />
 
       {/* Hero */}
       <div className="bg-gray-900 dark:bg-gray-950">

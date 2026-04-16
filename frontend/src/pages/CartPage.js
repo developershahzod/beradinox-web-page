@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { useCart } from '../context/CartContext';
 import { Trash2, Plus, Minus, ShoppingBag, ChevronRight } from 'lucide-react';
+import SEO from '../components/SEO';
 
 const CartPage = () => {
   const { cartItems, removeFromCart, updateQuantity, getCartTotal, getCartCount } = useCart();

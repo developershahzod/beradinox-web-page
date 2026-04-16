@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import axios from '../api/axios';
 import { ArrowRight, ChevronRight, Shield, Truck, Award, Phone } from 'lucide-react';
 import { getProductImage } from '../utils/productImage';
+import SEO from '../components/SEO';
 
 const getCategoryIcon = (slug) => {
   const map = {
@@ -43,6 +44,11 @@ const HomePage = () => {
 
   return (
     <div className="min-h-screen bg-gray-50/50 dark:bg-gray-900">
+      <SEO
+        title="Металлопрокат, нержавеющая сталь и алюминий"
+        description="Beradinox — терминал металлопродукции №1 в Узбекистане. Нержавеющая сталь, алюминий, трубы, листы, оборудование. Доставка по всему Узбекистану. Лучшие цены."
+        canonical="/"
+      />
       {/* Hero Section */}
       <section
         className="relative text-white overflow-hidden"

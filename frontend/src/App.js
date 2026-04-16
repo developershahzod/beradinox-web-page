@@ -1,4 +1,5 @@
 import React, { useState, useCallback } from 'react';
+import { HelmetProvider } from 'react-helmet-async';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { CartProvider } from './context/CartContext';
 import { ThemeProvider } from './context/ThemeContext';
@@ -22,6 +23,7 @@ function App() {
   }, []);
 
   return (
+    <HelmetProvider>
     <ThemeProvider>
     <CartProvider>
       <Router>
@@ -48,6 +50,7 @@ function App() {
       </Router>
     </CartProvider>
     </ThemeProvider>
+    </HelmetProvider>
   );
 }
 

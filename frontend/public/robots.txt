@@ -1,0 +1,10 @@
+User-agent: *
+Allow: /
+Disallow: /cart
+Disallow: /checkout
+Disallow: /admin
+
+Sitemap: https://beradinox.uz/sitemap.xml
+Sitemap: https://beradinox.uz/api/sitemap
+
+Host: https://beradinox.uz

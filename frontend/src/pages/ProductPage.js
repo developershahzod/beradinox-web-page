@@ -5,6 +5,7 @@ import axios from '../api/axios';
 import { useCart } from '../context/CartContext';
 import CartToast from '../components/CartToast';
 import { getProductImage } from '../utils/productImage';
+import SEO from '../components/SEO';
 
 const ProductPage = () => {
   const { slug } = useParams();
@@ -51,6 +52,12 @@ const ProductPage = () => {
 
   return (
     <>
+    <SEO
+      title={`${product.nameRu} — купить в Beradinox`}
+      description={`${product.nameRu}${product.brand ? ` ${product.brand}` : ''}${product.gost ? ` ${product.gost}` : ''}. Цена${product.price ? `: ${product.price.toLocaleString()} сум` : ' по запросу'}. Купить в Beradinox с доставкой по Узбекистану.`}
+      canonical={`/product/${slug}`}
+      type="product"
+    />
     <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
 
       {/* Breadcrumbs */}
