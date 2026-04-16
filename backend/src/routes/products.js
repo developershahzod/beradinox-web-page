@@ -152,11 +152,16 @@ router.get('/:idOrSlug', async (req, res) => {
         include: { category: { include: { parent: true } } },
       });
     } else {
-      product = await prisma.product.update({
+      product = await prisma.product.findUnique({
         where: { slug: idOrSlug },
-        data: { viewCount: { increment: 1 } },
         include: { category: { include: { parent: true } } },
       });
+      if (product) {
+        await prisma.product.update({
+          where: { slug: idOrSlug },
+          data: { viewCount: { increment: 1 } },
+        }).catch(() => {});
+      }
     }
 
     if (!product) {
