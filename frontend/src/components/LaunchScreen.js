@@ -149,19 +149,6 @@ const LaunchScreen = ({ onDone }) => {
         </div>
       </div>
 
-      {/* Bottom label */}
-      <div className="launch-text" style={{
-        position: 'absolute',
-        bottom: '32px',
-        fontSize: '10px',
-        color: 'rgba(255,255,255,0.2)',
-        letterSpacing: '0.2em',
-        textTransform: 'uppercase',
-        fontFamily: 'Inter, sans-serif',
-      }}>
-        beradtech.ru
-      </div>
-
       <style>{`
         @keyframes spin {
           from { transform: rotate(0deg); }
