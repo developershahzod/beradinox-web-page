@@ -111,106 +111,6 @@ const Header = () => {
     );
   };
 
-  const SearchDropdown = ({ isMobile = false }) => (
-    <div
-      ref={isMobile ? null : searchRef}
-      className="relative w-full"
-    >
-      <form onSubmit={handleSearch}>
-        <div className={`flex w-full border rounded-md overflow-visible focus-within:border-gray-400 transition-colors relative ${
-          showDropdown && !isMobile ? 'border-gray-400 rounded-b-none' : 'border-gray-200'
-        }`}>
-          {isMobile && (
-            <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none z-10" />
-          )}
-          <input
-            ref={isMobile ? null : inputRef}
-            type="text"
-            placeholder="Поиск по названию, марке, ГОСТ..."
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-            onFocus={() => results.length > 0 && setShowDropdown(true)}
-            onKeyDown={handleKeyDown}
-            autoComplete="off"
-            className={`flex-1 h-9 bg-white text-sm text-gray-900 placeholder-gray-400 focus:outline-none ${isMobile ? 'pl-9 pr-4' : 'px-4'}`}
-          />
-          {loading && (
-            <div className="absolute right-12 top-1/2 -translate-y-1/2 w-4 h-4 border-2 border-gray-300 border-t-gray-600 rounded-full animate-spin" />
-          )}
-          {!isMobile && (
-            <button type="submit" className="flex-shrink-0 w-10 h-9 flex items-center justify-center bg-gray-900 hover:bg-gray-800 transition-colors">
-              <Search size={15} className="text-white" />
-            </button>
-          )}
-        </div>
-      </form>
-
-      {/* Dropdown */}
-      {showDropdown && !isMobile && (
-        <div className="absolute top-full left-0 right-0 bg-white border border-gray-300 border-t-0 rounded-b-md shadow-lg z-50 overflow-hidden">
-          {results.length === 0 && !loading ? (
-            <div className="px-4 py-5 text-center">
-              <Package size={24} className="mx-auto mb-2 text-gray-300" />
-              <p className="text-sm text-gray-500">Ничего не найдено по «{searchQuery}»</p>
-            </div>
-          ) : (
-            <>
-              <div className="divide-y divide-gray-100">
-                {results.map((product, i) => (
-                  <Link
-                    key={product.id}
-                    to={`/product/${product.slug}`}
-                    onClick={() => setShowDropdown(false)}
-                    className={`flex items-center gap-3 px-3 py-2.5 hover:bg-gray-50 transition-colors ${activeIndex === i ? 'bg-gray-50' : ''}`}
-                  >
-                    <div className="w-10 h-10 flex-shrink-0 bg-gray-100 rounded flex items-center justify-center overflow-hidden">
-                      <img
-                        src={getProductImage(product)}
-                        alt={product.nameRu}
-                        className="w-8 h-8 object-contain"
-                        onError={(e) => { e.target.src = '/products/default.svg'; }}
-                      />
-                    </div>
-                    <div className="flex-1 min-w-0">
-                      <p className="text-sm font-medium text-gray-900 truncate">
-                        {highlightMatch(product.nameRu, searchQuery)}
-                      </p>
-                      <div className="flex items-center gap-2 mt-0.5">
-                        {product.category?.nameRu && (
-                          <span className="text-[10px] text-gray-400">{product.category.nameRu}</span>
-                        )}
-                        {product.brand && (
-                          <span className="text-[10px] text-gray-400">· {product.brand}</span>
-                        )}
-                      </div>
-                    </div>
-                    <div className="flex-shrink-0 text-right">
-                      {product.priceType === 'negotiable' ? (
-                        <span className="text-[10px] text-gray-400">Договорная</span>
-                      ) : product.price ? (
-                        <span className="text-xs font-semibold text-gray-900">{product.price.toLocaleString('ru-RU')} <span className="text-gray-400 font-normal">сум</span></span>
-                      ) : null}
-                    </div>
-                  </Link>
-                ))}
-              </div>
-
-              {/* Footer: show all */}
-              <div
-                onClick={() => { navigate(`/catalog?search=${encodeURIComponent(searchQuery)}`); setShowDropdown(false); }}
-                className="flex items-center justify-between px-4 py-2.5 bg-gray-50 hover:bg-gray-100 cursor-pointer transition-colors border-t border-gray-100 group"
-              >
-                <span className="text-xs font-medium text-gray-600 group-hover:text-gray-900">
-                  Все результаты по «<strong>{searchQuery}</strong>»
-                </span>
-                <ArrowRight size={13} className="text-gray-400 group-hover:text-gray-900 transition-colors" />
-              </div>
-            </>
-          )}
-        </div>
-      )}
-    </div>
-  );
 
   return (
     <header className="sticky top-0 z-50">
@@ -242,8 +142,97 @@ const Header = () => {
           </Link>
 
           {/* Desktop Search with dropdown */}
-          <div className="flex-1 hidden md:flex items-center" ref={searchRef}>
-            <SearchDropdown />
+          <div className="flex-1 hidden md:flex items-center">
+            <div ref={searchRef} className="relative w-full">
+              <form onSubmit={handleSearch}>
+                <div className={`flex w-full border rounded-md overflow-visible focus-within:border-gray-400 transition-colors relative ${
+                  showDropdown ? 'border-gray-400 rounded-b-none' : 'border-gray-200'
+                }`}>
+                  <input
+                    ref={inputRef}
+                    type="text"
+                    placeholder="Поиск по названию, марке, ГОСТ..."
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
+                    onFocus={() => results.length > 0 && setShowDropdown(true)}
+                    onKeyDown={handleKeyDown}
+                    autoComplete="off"
+                    className="flex-1 h-9 px-4 bg-white text-sm text-gray-900 placeholder-gray-400 focus:outline-none"
+                  />
+                  {loading && (
+                    <div className="absolute right-12 top-1/2 -translate-y-1/2 w-4 h-4 border-2 border-gray-300 border-t-gray-600 rounded-full animate-spin" />
+                  )}
+                  <button type="submit" className="flex-shrink-0 w-10 h-9 flex items-center justify-center bg-gray-900 hover:bg-gray-800 transition-colors">
+                    <Search size={15} className="text-white" />
+                  </button>
+                </div>
+              </form>
+
+              {/* Dropdown */}
+              {showDropdown && (
+                <div className="absolute top-full left-0 right-0 bg-white border border-gray-300 border-t-0 rounded-b-md shadow-lg z-50 overflow-hidden">
+                  {results.length === 0 && !loading ? (
+                    <div className="px-4 py-5 text-center">
+                      <Package size={24} className="mx-auto mb-2 text-gray-300" />
+                      <p className="text-sm text-gray-500">Ничего не найдено по «{searchQuery}»</p>
+                    </div>
+                  ) : (
+                    <>
+                      <div className="divide-y divide-gray-100">
+                        {results.map((product, i) => (
+                          <Link
+                            key={product.id}
+                            to={`/product/${product.slug}`}
+                            onClick={() => setShowDropdown(false)}
+                            className={`flex items-center gap-3 px-3 py-2.5 hover:bg-gray-50 transition-colors ${activeIndex === i ? 'bg-gray-50' : ''}`}
+                          >
+                            <div className="w-10 h-10 flex-shrink-0 bg-gray-100 rounded flex items-center justify-center overflow-hidden">
+                              <img
+                                src={getProductImage(product)}
+                                alt={product.nameRu}
+                                className="w-8 h-8 object-contain"
+                                onError={(e) => { e.target.src = '/products/default.svg'; }}
+                              />
+                            </div>
+                            <div className="flex-1 min-w-0">
+                              <p className="text-sm font-medium text-gray-900 truncate">
+                                {highlightMatch(product.nameRu, searchQuery)}
+                              </p>
+                              <div className="flex items-center gap-2 mt-0.5">
+                                {product.category?.nameRu && (
+                                  <span className="text-[10px] text-gray-400">{product.category.nameRu}</span>
+                                )}
+                                {product.brand && (
+                                  <span className="text-[10px] text-gray-400">· {product.brand}</span>
+                                )}
+                              </div>
+                            </div>
+                            <div className="flex-shrink-0 text-right">
+                              {product.priceType === 'negotiable' ? (
+                                <span className="text-[10px] text-gray-400">Договорная</span>
+                              ) : product.price ? (
+                                <span className="text-xs font-semibold text-gray-900">{product.price.toLocaleString('ru-RU')} <span className="text-gray-400 font-normal">сум</span></span>
+                              ) : null}
+                            </div>
+                          </Link>
+                        ))}
+                      </div>
+
+                      {/* Footer: show all */}
+                      <div
+                        onClick={() => { navigate(`/catalog?search=${encodeURIComponent(searchQuery)}`); setShowDropdown(false); }}
+                        className="flex items-center justify-between px-4 py-2.5 bg-gray-50 hover:bg-gray-100 cursor-pointer transition-colors border-t border-gray-100 group"
+                      >
+                        <span className="text-xs font-medium text-gray-600 group-hover:text-gray-900">
+                          Все результаты по «<strong>{searchQuery}</strong>»
+                        </span>
+                        <ArrowRight size={13} className="text-gray-400 group-hover:text-gray-900 transition-colors" />
+                      </div>
+                    </>
+                  )}
+                </div>
+              )}
+            </div>
           </div>
 
           {/* Right side */}
@@ -294,7 +283,19 @@ const Header = () => {
       {mobileMenuOpen && (
         <div className="md:hidden bg-white border-b border-gray-200">
           <div className="px-4 py-3 space-y-3">
-            <SearchDropdown isMobile />
+            <form onSubmit={handleSearch}>
+              <div className="flex w-full border border-gray-200 rounded-md overflow-visible focus-within:border-gray-400 transition-colors relative">
+                <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none z-10" />
+                <input
+                  type="text"
+                  placeholder="Поиск по названию, марке, ГОСТ..."
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  autoComplete="off"
+                  className="flex-1 h-9 pl-9 pr-4 bg-white text-sm text-gray-900 placeholder-gray-400 focus:outline-none"
+                />
+              </div>
+            </form>
             <nav className="flex flex-col">
               {navLinks.map((link) => (
                 <Link
