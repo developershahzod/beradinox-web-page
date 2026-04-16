@@ -138,25 +138,26 @@ router.get('/filters', async (req, res) => {
   }
 });
 
-router.get('/:slug', async (req, res) => {
+router.get('/:idOrSlug', async (req, res) => {
   try {
-    const { slug } = req.params;
+    const { idOrSlug } = req.params;
 
-    const product = await prisma.product.update({
-      where: { slug },
-      data: {
-        viewCount: {
-          increment: 1,
-        },
-      },
-      include: {
-        category: {
-          include: {
-            parent: true,
-          },
-        },
-      },
-    });
+    // Check if it's a UUID (for admin) or slug (for frontend)
+    const isUuid = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(idOrSlug);
+
+    let product;
+    if (isUuid) {
+      product = await prisma.product.findUnique({
+        where: { id: idOrSlug },
+        include: { category: { include: { parent: true } } },
+      });
+    } else {
+      product = await prisma.product.update({
+        where: { slug: idOrSlug },
+        data: { viewCount: { increment: 1 } },
+        include: { category: { include: { parent: true } } },
+      });
+    }
 
     if (!product) {
       return res.status(404).json({ error: 'Product not found' });
@@ -190,11 +191,14 @@ router.post('/', authMiddleware, async (req, res) => {
 router.put('/:id', authMiddleware, async (req, res) => {
   try {
     const { id } = req.params;
-    const productData = req.body;
+    const body = req.body;
+
+    // Strip relational/read-only fields that Prisma cannot accept
+    const { category, orderItems, id: _id, createdAt, updatedAt, viewCount, ...cleanData } = body;
 
     const product = await prisma.product.update({
       where: { id },
-      data: productData,
+      data: cleanData,
       include: {
         category: true,
       },
@@ -203,7 +207,7 @@ router.put('/:id', authMiddleware, async (req, res) => {
     res.json(product);
   } catch (error) {
     console.error('Error updating product:', error);
-    res.status(500).json({ error: 'Failed to update product' });
+    res.status(500).json({ error: 'Failed to update product', details: error.message });
   }
 });
 

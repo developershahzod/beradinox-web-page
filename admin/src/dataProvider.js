@@ -95,11 +95,13 @@ const dataProvider = {
     });
   },
 
-  update: (resource, params) =>
-    httpClient(`${API_URL}/${resource}/${params.id}`, {
+  update: (resource, params) => {
+    const { category, orderItems, children, parent, products, _count, createdAt, updatedAt, viewCount, ...cleanData } = params.data;
+    return httpClient(`${API_URL}/${resource}/${params.id}`, {
       method: 'PUT',
-      body: JSON.stringify(params.data),
-    }).then(({ json }) => ({ data: json })),
+      body: JSON.stringify(cleanData),
+    }).then(({ json }) => ({ data: json }));
+  },
 
   updateMany: (resource, params) => {
     return Promise.all(

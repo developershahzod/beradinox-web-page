@@ -1,14 +1,28 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Phone, Mail, MapPin, Clock, Send, ChevronRight, MessageSquare, CheckCircle } from 'lucide-react';
+import axios from '../api/axios';
 
 const ContactPage = () => {
   const [formData, setFormData] = useState({ name: '', phone: '', message: '' });
   const [submitted, setSubmitted] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState('');
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    setSubmitted(true);
+    setLoading(true);
+    setError('');
+    
+    try {
+      await axios.post('/callbacks', formData);
+      setSubmitted(true);
+    } catch (err) {
+      console.error('Callback submission error:', err);
+      setError('Произошла ошибка. Попробуйте позже или позвоните нам.');
+    } finally {
+      setLoading(false);
+    }
   };
 
   const handleChange = (e) => {
@@ -182,12 +196,18 @@ const ContactPage = () => {
                 </div>
               ) : (
                 <form onSubmit={handleSubmit} className="px-5 py-5 space-y-4">
+                  {error && (
+                    <div className="px-3 py-2 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-md">
+                      <p className="text-xs text-red-600 dark:text-red-400">{error}</p>
+                    </div>
+                  )}
                   <div>
                     <label className="block text-[11px] font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wide mb-1.5">Ваше имя *</label>
                     <input
                       type="text" name="name" required value={formData.name} onChange={handleChange}
                       placeholder="Иван Иванов"
-                      className="w-full h-10 px-3 border border-gray-200 dark:border-gray-600 bg-gray-50 dark:bg-gray-700 rounded-md text-sm dark:text-gray-100 placeholder-gray-400 focus:outline-none focus:border-gray-400 focus:bg-white dark:focus:bg-gray-600 transition-colors"
+                      disabled={loading}
+                      className="w-full h-10 px-3 border border-gray-200 dark:border-gray-600 bg-gray-50 dark:bg-gray-700 rounded-md text-sm dark:text-gray-100 placeholder-gray-400 focus:outline-none focus:border-gray-400 focus:bg-white dark:focus:bg-gray-600 transition-colors disabled:opacity-50"
                     />
                   </div>
                   <div>
@@ -195,7 +215,8 @@ const ContactPage = () => {
                     <input
                       type="tel" name="phone" required value={formData.phone} onChange={handleChange}
                       placeholder="+998 __ ___ __ __"
-                      className="w-full h-10 px-3 border border-gray-200 dark:border-gray-600 bg-gray-50 dark:bg-gray-700 rounded-md text-sm dark:text-gray-100 placeholder-gray-400 focus:outline-none focus:border-gray-400 focus:bg-white dark:focus:bg-gray-600 transition-colors"
+                      disabled={loading}
+                      className="w-full h-10 px-3 border border-gray-200 dark:border-gray-600 bg-gray-50 dark:bg-gray-700 rounded-md text-sm dark:text-gray-100 placeholder-gray-400 focus:outline-none focus:border-gray-400 focus:bg-white dark:focus:bg-gray-600 transition-colors disabled:opacity-50"
                     />
                   </div>
                   <div>
@@ -203,15 +224,17 @@ const ContactPage = () => {
                     <textarea
                       name="message" rows="5" required value={formData.message} onChange={handleChange}
                       placeholder="Опишите ваш запрос или вопрос..."
-                      className="w-full px-3 py-2.5 border border-gray-200 dark:border-gray-600 bg-gray-50 dark:bg-gray-700 rounded-md text-sm dark:text-gray-100 placeholder-gray-400 focus:outline-none focus:border-gray-400 focus:bg-white dark:focus:bg-gray-600 resize-none transition-colors"
+                      disabled={loading}
+                      className="w-full px-3 py-2.5 border border-gray-200 dark:border-gray-600 bg-gray-50 dark:bg-gray-700 rounded-md text-sm dark:text-gray-100 placeholder-gray-400 focus:outline-none focus:border-gray-400 focus:bg-white dark:focus:bg-gray-600 resize-none transition-colors disabled:opacity-50"
                     />
                   </div>
                   <button
                     type="submit"
-                    className="w-full h-11 bg-gray-900 dark:bg-white dark:text-gray-900 text-white text-sm font-semibold rounded-md hover:bg-gray-800 dark:hover:bg-gray-100 flex items-center justify-center gap-2 transition-colors"
+                    disabled={loading}
+                    className="w-full h-11 bg-gray-900 dark:bg-white dark:text-gray-900 text-white text-sm font-semibold rounded-md hover:bg-gray-800 dark:hover:bg-gray-100 flex items-center justify-center gap-2 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
                   >
                     <Send size={14} />
-                    Отправить сообщение
+                    {loading ? 'Отправка...' : 'Отправить сообщение'}
                   </button>
                   <p className="text-[10px] text-gray-400 text-center">Нажимая кнопку, вы соглашаетесь на обработку персональных данных</p>
                 </form>

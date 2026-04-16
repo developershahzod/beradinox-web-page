@@ -35,13 +35,13 @@ model Category {
 }
 
 model Product {
-  id             String   @id @default(uuid())
+  id             String      @id @default(uuid())
   name           String
   nameRu         String
-  description     String?
+  description    String?
   descriptionRu  String?
   categoryId     String
-  category       Category @relation(fields: [categoryId], references: [id])
+  category       Category    @relation(fields: [categoryId], references: [id])
   images         String[]
   specifications Json?
   gost           String?
@@ -51,19 +51,58 @@ model Product {
   length         String?
   weight         String?
   price          Float?
-  priceType      String   @default("fixed")
-  inStock        Boolean  @default(true)
-  featured       Boolean  @default(false)
-  viewCount      Int      @default(0)
-  slug           String   @unique
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  priceType      String      @default("fixed")
+  inStock        Boolean     @default(true)
+  featured       Boolean     @default(false)
+  viewCount      Int         @default(0)
+  slug           String      @unique
+  orderItems     OrderItem[]
+  createdAt      DateTime    @default(now())
+  updatedAt      DateTime    @updatedAt
 }
 
 model Setting {
   id        String   @id @default(uuid())
   key       String   @unique
   value     String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Order {
+  id             String      @id @default(uuid())
+  customerName   String
+  customerPhone  String
+  customerEmail  String?
+  company        String?
+  address        String?
+  notes          String?
+  total          Float
+  status         String      @default("pending")
+  items          OrderItem[]
+  createdAt      DateTime    @default(now())
+  updatedAt      DateTime    @updatedAt
+}
+
+model OrderItem {
+  id         String   @id @default(uuid())
+  orderId    String
+  order      Order    @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  productId  String
+  product    Product  @relation(fields: [productId], references: [id])
+  quantity   Int
+  price      Float
+  priceType  String   @default("fixed")
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+}
+
+model CallbackRequest {
+  id        String   @id @default(uuid())
+  name      String
+  phone     String
+  message   String?
+  status    String   @default("new")
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }

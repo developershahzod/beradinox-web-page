@@ -11,8 +11,29 @@ const ProductPage = () => {
   const { addToCart } = useCart();
   const [product, setProduct] = useState(null);
   const [showContactForm, setShowContactForm] = useState(false);
+  const [callbackName, setCallbackName] = useState('');
+  const [callbackPhone, setCallbackPhone] = useState('');
+  const [callbackLoading, setCallbackLoading] = useState(false);
+  const [callbackSent, setCallbackSent] = useState(false);
   const [quantity, setQuantity] = useState(1);
   const [toastProduct, setToastProduct] = useState(null);
+
+  const handleCallbackSubmit = async (e) => {
+    e.preventDefault();
+    setCallbackLoading(true);
+    try {
+      await axios.post('/callbacks', {
+        name: callbackName,
+        phone: callbackPhone,
+        message: product ? `Заказать звонок по товару: ${product.nameRu} (${product.slug})` : 'Заказать звонок',
+      });
+      setCallbackSent(true);
+    } catch (err) {
+      console.error('Callback error:', err);
+      alert('Ошибка. Попробуйте позвонить нам: +998 78 113 62 18');
+    }
+    setCallbackLoading(false);
+  };
 
   useEffect(() => {
     axios.get(`/products/${slug}`)
@@ -242,15 +263,31 @@ const ProductPage = () => {
                       Заказать звонок
                     </button>
                   </div>
+                ) : callbackSent ? (
+                  <div className="text-center py-4">
+                    <div className="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-3">
+                      <Send size={18} className="text-green-600" />
+                    </div>
+                    <p className="text-sm font-bold text-gray-900 dark:text-white mb-1">Заявка отправлена!</p>
+                    <p className="text-xs text-gray-400">Мы перезвоним вам в ближайшее время</p>
+                    <button type="button" onClick={() => { setCallbackSent(false); setShowContactForm(false); setCallbackName(''); setCallbackPhone(''); }}
+                      className="mt-4 text-xs text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 transition-colors">
+                      Закрыть
+                    </button>
+                  </div>
                 ) : (
-                  <form className="space-y-3">
-                    <input type="text" placeholder="Ваше имя"
-                      className="w-full h-10 px-3 border border-gray-200 dark:border-gray-600 bg-gray-50 dark:bg-gray-700 rounded text-sm dark:text-gray-100 placeholder-gray-400 focus:outline-none focus:border-gray-400 focus:bg-white dark:focus:bg-gray-600 transition-colors" />
-                    <input type="tel" placeholder="+998 __ ___ __ __"
-                      className="w-full h-10 px-3 border border-gray-200 dark:border-gray-600 bg-gray-50 dark:bg-gray-700 rounded text-sm dark:text-gray-100 placeholder-gray-400 focus:outline-none focus:border-gray-400 focus:bg-white dark:focus:bg-gray-600 transition-colors" />
-                    <button type="submit"
-                      className="w-full h-10 bg-gray-900 dark:bg-white dark:text-gray-900 text-white text-sm font-semibold rounded hover:bg-gray-800 transition-colors">
-                      Отправить
+                  <form onSubmit={handleCallbackSubmit} className="space-y-3">
+                    <input type="text" placeholder="Ваше имя" required
+                      value={callbackName} onChange={(e) => setCallbackName(e.target.value)}
+                      disabled={callbackLoading}
+                      className="w-full h-10 px-3 border border-gray-200 dark:border-gray-600 bg-gray-50 dark:bg-gray-700 rounded text-sm dark:text-gray-100 placeholder-gray-400 focus:outline-none focus:border-gray-400 focus:bg-white dark:focus:bg-gray-600 transition-colors disabled:opacity-50" />
+                    <input type="tel" placeholder="+998 __ ___ __ __" required
+                      value={callbackPhone} onChange={(e) => setCallbackPhone(e.target.value)}
+                      disabled={callbackLoading}
+                      className="w-full h-10 px-3 border border-gray-200 dark:border-gray-600 bg-gray-50 dark:bg-gray-700 rounded text-sm dark:text-gray-100 placeholder-gray-400 focus:outline-none focus:border-gray-400 focus:bg-white dark:focus:bg-gray-600 transition-colors disabled:opacity-50" />
+                    <button type="submit" disabled={callbackLoading}
+                      className="w-full h-10 bg-gray-900 dark:bg-white dark:text-gray-900 text-white text-sm font-semibold rounded hover:bg-gray-800 transition-colors disabled:opacity-50">
+                      {callbackLoading ? 'Отправка...' : 'Отправить'}
                     </button>
                     <button type="button" onClick={() => setShowContactForm(false)}
                       className="w-full h-8 text-xs text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 transition-colors">

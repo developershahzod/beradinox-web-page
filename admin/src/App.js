@@ -4,10 +4,12 @@ import dataProvider from './dataProvider';
 import authProvider from './authProvider';
 import theme from './theme';
 import CustomLayout from './layout/CustomLayout';
+import LoginPage from './LoginPage';
 import { ProductList, ProductEdit, ProductCreate } from './resources/products';
 import { CategoryList, CategoryEdit, CategoryCreate } from './resources/categories';
 import { SettingList, SettingEdit } from './resources/settings';
 import { OrderList, OrderShow, OrderEdit } from './resources/orders';
+import { CallbackList, CallbackShow, CallbackEdit } from './resources/callbacks';
 import Dashboard from './Dashboard';
 
 const App = () => (
@@ -16,6 +18,7 @@ const App = () => (
     authProvider={authProvider}
     dashboard={Dashboard}
     layout={CustomLayout}
+    loginPage={LoginPage}
     theme={theme}
     basename="/admin"
     title="Beradinox Admin"
@@ -41,6 +44,13 @@ const App = () => (
       show={OrderShow}
       edit={OrderEdit}
       options={{ label: 'Заказы' }}
+    />
+    <Resource
+      name="callbacks"
+      list={CallbackList}
+      show={CallbackShow}
+      edit={CallbackEdit}
+      options={{ label: 'Обратная связь' }}
     />
     <Resource
       name="settings"
