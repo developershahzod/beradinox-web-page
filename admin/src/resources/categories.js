@@ -208,6 +208,8 @@ const CategoryForm = ({ isEdit }) => (
         <ReferenceInput source="parentId" reference="categories" label="Родительская категория">
           <SelectInput optionText="nameRu" fullWidth emptyText="— Нет (основная категория) —" />
         </ReferenceInput>
+        <TextInput source="descriptionRu" label="Описание (RU)" multiline rows={4} fullWidth helperText="SEO описание категории для сайта" />
+        <TextInput source="description" label="Description (EN)" multiline rows={3} fullWidth />
       </Box>
       <Box>
         <Typography sx={{ fontSize: 13, fontWeight: 700, color: '#111827', mb: 2, pb: 1, borderBottom: '2px solid #111827', display: 'inline-block' }}>

@@ -76,13 +76,15 @@ router.get('/:idOrSlug', async (req, res) => {
 
 router.post('/', authMiddleware, async (req, res) => {
   try {
-    const { name, nameRu, slug, icon, image, order, parentId } = req.body;
+    const { name, nameRu, slug, icon, image, order, parentId, description, descriptionRu } = req.body;
 
     const category = await prisma.category.create({
       data: {
         name,
         nameRu,
         slug,
+        description,
+        descriptionRu,
         icon,
         image,
         order: order || 0,

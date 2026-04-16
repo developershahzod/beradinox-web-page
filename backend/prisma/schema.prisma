@@ -19,14 +19,16 @@ model User {
 }
 
 model Category {
-  id          String        @id @default(uuid())
-  name        String
-  nameRu      String
-  slug        String        @unique
-  icon        String?
-  image       String?
-  order       Int           @default(0)
-  parentId    String?
+  id            String        @id @default(uuid())
+  name          String
+  nameRu        String
+  slug          String        @unique
+  description   String?
+  descriptionRu String?
+  icon          String?
+  image         String?
+  order         Int           @default(0)
+  parentId      String?
   parent      Category?     @relation("CategoryToCategory", fields: [parentId], references: [id])
   children    Category[]    @relation("CategoryToCategory")
   products    Product[]
