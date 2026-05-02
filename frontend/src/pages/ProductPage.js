@@ -31,7 +31,7 @@ const ProductPage = () => {
       setCallbackSent(true);
     } catch (err) {
       console.error('Callback error:', err);
-      alert('Ошибка. Попробуйте позвонить нам: +998 78 113 62 18');
+      alert('Ошибка. Попробуйте позвонить нам: +998 99 367 94 00');
     }
     setCallbackLoading(false);
   };
@@ -244,12 +244,12 @@ const ProductPage = () => {
               <div className="p-5">
                 {!showContactForm ? (
                   <div className="space-y-2.5">
-                    <a href="tel:+998781136218"
+                    <a href="tel:+998993679400"
                       className="flex items-center gap-3 p-3.5 bg-gray-900 dark:bg-gray-700 text-white rounded-md hover:bg-gray-800 dark:hover:bg-gray-600 transition-colors">
                       <Phone size={16} className="flex-shrink-0" />
                       <div>
                         <div className="text-[10px] text-gray-400 uppercase tracking-wide">Позвонить</div>
-                        <div className="text-sm font-bold">+998 78 113 62 18</div>
+                        <div className="text-sm font-bold">+998 99 367 94 00</div>
                       </div>
                     </a>
 

@@ -45,7 +45,7 @@ const AboutPage = () => {
                 <ArrowRight size={15} />
               </Link>
               <a
-                href="tel:+998781136218"
+                href="tel:+998993679400"
                 className="inline-flex items-center justify-center gap-2 px-6 py-3 border border-white/30 text-white font-semibold text-sm rounded hover:bg-white/10 backdrop-blur-sm transition-colors"
               >
                 <Phone size={16} />
@@ -179,8 +179,8 @@ const AboutPage = () => {
                 <div className="flex items-start gap-3">
                   <Phone size={15} className="text-gray-400 flex-shrink-0 mt-0.5" />
                   <div>
-                    <a href="tel:+998781136218" className="text-sm font-semibold text-gray-900 hover:text-gray-600 transition-colors">
-                      +998 78 113 62 18
+                    <a href="tel:+998993679400" className="text-sm font-semibold text-gray-900 hover:text-gray-600 transition-colors">
+                      +998 99 367 94 00
                     </a>
                     <p className="text-xs text-gray-400">пн–пт, 9:00–18:00</p>
                   </div>
@@ -206,11 +206,11 @@ const AboutPage = () => {
           </div>
           <div className="flex flex-col sm:flex-row gap-3 flex-shrink-0">
             <a
-              href="tel:+998781136218"
+              href="tel:+998993679400"
               className="inline-flex items-center justify-center gap-2 px-6 py-3 bg-white text-gray-900 text-sm font-semibold rounded-md hover:bg-gray-100 transition-colors"
             >
               <Phone size={15} />
-              +998 78 113 62 18
+              +998 99 367 94 00
             </a>
             <Link
               to="/contacts"

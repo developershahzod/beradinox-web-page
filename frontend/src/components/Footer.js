@@ -9,7 +9,10 @@ const Footer = () => {
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 mb-10">
           {/* Logo */}
           <div>
-            <img src="/logo-beradinox.png" alt="Beradinox" className="h-10 object-contain mb-3 brightness-0 invert opacity-80" />
+            <div className="flex items-center gap-3 mb-3">
+              <img src="/logo-beradinox.png" alt="Beradinox" className="h-12 w-12 object-contain rounded-lg" />
+              <span className="text-base font-bold text-white tracking-wide">Beradinox</span>
+            </div>
             <p className="text-xs text-gray-500 leading-relaxed">
               Поставка нержавеющей стали и алюминия. Терминал металлопродукции №1.
             </p>
@@ -37,9 +40,9 @@ const Footer = () => {
             <h3 className="text-xs font-bold text-gray-300 uppercase tracking-wider mb-3">Контакты</h3>
             <ul className="space-y-2">
               <li>
-                <a href="tel:+998781136218" className="text-xs text-gray-500 hover:text-white transition-colors flex items-center gap-2">
+                <a href="tel:+998993679400" className="text-xs text-gray-500 hover:text-white transition-colors flex items-center gap-2">
                   <Phone size={12} />
-                  +998 78 113 62 18
+                  +998 99 367 94 00
                 </a>
               </li>
               <li>

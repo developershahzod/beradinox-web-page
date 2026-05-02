@@ -32,7 +32,7 @@ const ContactPage = () => {
 
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
-      <SEO title="Контакты" description="Свяжитесь с Beradinox: телефон +998 78 113 62 18, адрес в Ташкенте. Консультация, заказ металлопродукции, доставка по Узбекистану." canonical="/contacts" />
+      <SEO title="Контакты" description="Свяжитесь с Beradinox: телефон +998 99 367 94 00, адрес в Ташкенте. Консультация, заказ металлопродукции, доставка по Узбекистану." canonical="/contacts" />
 
       {/* Hero */}
       <div className="bg-gray-900 dark:bg-gray-950">
@@ -63,9 +63,9 @@ const ContactPage = () => {
               {
                 icon: Phone,
                 label: 'Позвоните нам',
-                value: '+998 78 113 62 18',
+                value: '+998 99 367 94 00',
                 sub: 'пн–пт, 9:00–18:00',
-                href: 'tel:+998781136218',
+                href: 'tel:+998993679400',
               },
               {
                 icon: Mail,
@@ -156,7 +156,7 @@ const ContactPage = () => {
                   </div>
                 </a>
                 <a
-                  href="https://wa.me/998781136218"
+                  href="https://wa.me/998993679400"
                   target="_blank"
                   rel="noreferrer"
                   className="flex items-center gap-3 px-4 py-3 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg hover:border-gray-400 dark:hover:border-gray-500 transition-colors group"
@@ -166,7 +166,7 @@ const ContactPage = () => {
                   </div>
                   <div>
                     <p className="text-xs font-bold text-gray-900 dark:text-white">WhatsApp</p>
-                    <p className="text-[10px] text-gray-400">+998 78 113 62 18</p>
+                    <p className="text-[10px] text-gray-400">+998 99 367 94 00</p>
                   </div>
                 </a>
               </div>

@@ -83,20 +83,16 @@ const LaunchScreen = ({ onDone }) => {
 
           {/* Logo */}
           <div style={{
-            width: '100px',
-            height: '100px',
-            borderRadius: '50%',
-            background: 'rgba(255,255,255,0.06)',
-            border: '1px solid rgba(255,255,255,0.12)',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            backdropFilter: 'blur(10px)',
+            width: '110px',
+            height: '110px',
+            borderRadius: '18px',
+            overflow: 'hidden',
+            boxShadow: '0 8px 32px rgba(0,0,0,0.3)',
           }}>
             <img
               src="/logo-beradinox.png"
               alt="Beradinox"
-              style={{ width: '70px', height: '70px', objectFit: 'contain', filter: 'brightness(0) invert(1)' }}
+              style={{ width: '100%', height: '100%', objectFit: 'cover' }}
             />
           </div>
         </div>

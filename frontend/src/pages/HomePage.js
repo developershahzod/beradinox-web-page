@@ -83,7 +83,7 @@ const HomePage = () => {
                 <ArrowRight size={15} />
               </Link>
               <a
-                href="tel:+998781136218"
+                href="tel:+998993679400"
                 className="inline-flex items-center justify-center gap-2 px-6 py-3 border border-white/30 text-white font-semibold text-sm rounded hover:bg-white/10 backdrop-blur-sm transition-colors"
               >
                 <Phone size={16} />
@@ -251,11 +251,11 @@ const HomePage = () => {
           </p>
           <div className="flex flex-col sm:flex-row gap-3 justify-center">
             <a
-              href="tel:+998781136218"
+              href="tel:+998993679400"
               className="inline-flex items-center justify-center gap-2 px-6 py-3 bg-white text-gray-900 font-semibold text-sm rounded hover:bg-gray-100 transition-colors"
             >
               <Phone size={15} />
-              +998 78 113 62 18
+              +998 99 367 94 00
             </a>
             <Link
               to="/contacts"

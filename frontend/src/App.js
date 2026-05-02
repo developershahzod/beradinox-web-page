@@ -15,6 +15,7 @@ import ContactPage from './pages/ContactPage';
 import CartPage from './pages/CartPage';
 import CheckoutPage from './pages/CheckoutPage';
 import LaunchScreen from './components/LaunchScreen';
+import FloatingButtons from './components/FloatingButtons';
 
 function App() {
   const [launched, setLaunched] = useState(false);
@@ -46,6 +47,7 @@ function App() {
               <Footer />
             </main>
           </div>
+          <FloatingButtons />
         </div>
       </Router>
     </CartProvider>

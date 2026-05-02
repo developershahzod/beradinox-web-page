@@ -119,9 +119,9 @@ const Header = () => {
       <div className="bg-gray-900 hidden md:block">
         <div className="max-w-[1400px] mx-auto px-6 h-8 flex items-center justify-between text-[11px] text-gray-400">
           <div className="flex items-center gap-6">
-            <a href="tel:+998781136218" className="flex items-center gap-1.5 hover:text-white transition-colors">
+            <a href="tel:+998993679400" className="flex items-center gap-1.5 hover:text-white transition-colors">
               <Phone size={11} />
-              +998 78 113 62 18
+              +998 99 367 94 00
             </a>
             <a href="mailto:zakaz@beradinox.uz" className="flex items-center gap-1.5 hover:text-white transition-colors">
               <Mail size={11} />
@@ -237,9 +237,9 @@ const Header = () => {
 
           {/* Right side */}
           <div className="flex items-center gap-1 flex-shrink-0">
-            <a href="tel:+998781136218" className="hidden lg:flex items-center gap-1.5 px-3 py-1.5 text-sm font-semibold text-gray-800 hover:bg-gray-50 rounded-md transition-colors">
+            <a href="tel:+998993679400" className="hidden lg:flex items-center gap-1.5 px-3 py-1.5 text-sm font-semibold text-gray-800 hover:bg-gray-50 rounded-md transition-colors">
               <Phone size={14} className="text-gray-500" />
-              +998 78 113 62 18
+              +998 99 367 94 00
             </a>
 
             <Link to="/cart" className="relative p-2 rounded-md hover:bg-gray-100 transition-colors">
@@ -313,9 +313,9 @@ const Header = () => {
               ))}
             </nav>
             <div className="pt-2 border-t border-gray-100">
-              <a href="tel:+998781136218" className="flex items-center gap-2 px-3 py-2 text-sm font-semibold text-gray-700 rounded-md hover:bg-gray-50 transition-colors">
+              <a href="tel:+998993679400" className="flex items-center gap-2 px-3 py-2 text-sm font-semibold text-gray-700 rounded-md hover:bg-gray-50 transition-colors">
                 <Phone size={14} className="text-gray-400" />
-                +998 78 113 62 18
+                +998 99 367 94 00
               </a>
             </div>
           </div>
